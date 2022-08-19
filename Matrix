@@ -1,0 +1,188 @@
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Matrix {
+    Scanner choice;
+
+    public void starter() {
+        choice = new Scanner(System.in);
+        System.out.print("Your options are: \n ____________________________________\n\t 1) Add 2 matrices \n\t 2) Subtract 2 matrices \n\t 3) Multiply 2 matrices \n\t 4) Multiply matrix by a constant \n\t 5) Transpose matrix \n\t 6) Matrix trace \n\t 0) EXIT \nPlease enter your option: ");
+        int userChoice = choice.nextInt();
+
+        switch (userChoice) {
+            case 1 -> add();
+            case 2 -> subtract();
+            case 3 -> multiply();
+            case 4 -> {
+                System.out.println("What constant do you wish to use to multiply?");
+                int constantMultiple = choice.nextInt();
+                multiply(constantMultiple);
+            }
+            case 5 -> transpose();
+            case 6 -> trace();
+            case 0 -> {
+                System.out.println("Quitting...");
+                System.exit(0);
+            }
+        }
+    }
+
+    public int arraySize () {
+        System.out.print("Enter the size of the square matrix: ");
+
+        return choice.nextInt();
+    }
+
+    public int[][] generate() {
+        int matrixSize = arraySize();
+
+        Random max = new Random();
+
+        int[][] newArray = new int[matrixSize][matrixSize];
+
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
+                newArray[i][j] = max.nextInt(11);
+            }
+        }
+
+        return newArray;
+    }
+
+    public void add() {
+        int[][] arrayOne = generate();
+        int[][] arrayTwo = generate();
+
+        System.out.println("First matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        System.out.println("Second matrix is: ");
+        for(int[] ints : arrayTwo) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        for (int i = 0; i < arrayOne.length; i++) {
+            for (int j = 0; j < arrayOne.length; j++) {
+                 arrayOne[i][j] += arrayTwo[i][j];
+            }
+        }
+        System.out.println("The resulting matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+    }
+
+    public void subtract() {
+        int[][] arrayOne = generate();
+        int[][] arrayTwo = generate();
+
+        System.out.println("First matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        System.out.println("Second matrix is: ");
+        for(int[] ints : arrayTwo) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        for (int i = 0; i < arrayOne.length; i++) {
+            for (int j = 0; j < arrayOne.length; j++) {
+                arrayOne[i][j] -= arrayTwo[i][j];
+            }
+        }
+        System.out.println("The resulting matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+    }
+
+    public void multiply() {
+        int[][] arrayOne = generate();
+        int[][] arrayTwo = generate();
+
+        System.out.println("First matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        System.out.println("Second matrix is: ");
+        for(int[] ints : arrayTwo) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        for (int i = 0; i < arrayOne.length; i++) {
+            for (int j = 0; j < arrayOne.length; j++) {
+                arrayOne[i][j] *= arrayTwo[i][j];
+            }
+        }
+        System.out.println("The resulting matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+    }
+
+    //Multiply but with a constant
+    public void multiply(int constant) {
+        int[][] arrayOne = generate();
+
+        System.out.println("Matrix before multiplication with a constant is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        for (int i = 0; i < arrayOne.length; i++) {
+            for (int j = 0; j < arrayOne.length; j++) {
+                arrayOne[i][j] *= constant;
+            }
+        }
+        System.out.println("The resulting matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+    }
+
+    public void transpose() {
+        int[][] arrayOne = generate();
+        int[][] transposedArray = new int[arrayOne.length][arrayOne.length];
+
+        System.out.println("The matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        for (int i = 0; i < arrayOne.length; i++) {
+            for (int j = 0; j < arrayOne.length; j++) {
+                transposedArray[i][j] = arrayOne[j][i];
+            }
+        }
+
+        System.out.println("The transposed matrix is: ");
+        for(int[] ints : transposedArray) {
+            System.out.println(Arrays.toString(ints));
+        }
+    }
+
+    public void trace() {
+        int[][] arrayOne = generate();
+        int sum = 0;
+
+        System.out.println("The matrix is: ");
+        for(int[] ints : arrayOne) {
+            System.out.println(Arrays.toString(ints));
+        }
+
+        for (int i = 0; i < arrayOne.length; i++) {
+            for (int j = 0; j < arrayOne.length; j++) {
+                if (i == j) {
+                    sum += arrayOne[i][j];
+                }
+            }
+        }
+
+        System.out.println("The trace for this matrix is: " + sum);
+    }
+}
